@@ -29,6 +29,29 @@ export default function AdminLayout() {
     if (mainRef.current) {
       mainRef.current.scrollTop = 0;
     }
+
+    // Dynamic Browser Tab Title
+    const routeTitles = {
+      "/admin/dashboard": "Dashboard | DAS M360 ERP",
+      "/admin/organization": "Organization (Clause 4) | DAS M360 ERP",
+      "/admin/context": "Context & Interested Parties | DAS M360 ERP",
+      "/admin/leadership": "Leadership (Clause 5) | DAS M360 ERP",
+      "/admin/planning": "Planning (Clause 6) | DAS M360 ERP",
+      "/admin/process": "Process Management | DAS M360 ERP",
+      "/admin/risks": "Risk Management | DAS M360 ERP",
+      "/admin/support": "Support & Document Control | DAS M360 ERP",
+      "/admin/operations": "Operations (Clause 8) | DAS M360 ERP",
+      "/admin/performance": "Performance Evaluation | DAS M360 ERP",
+      "/admin/improvement": "Improvement (PDCA) | DAS M360 ERP",
+      "/admin/audits": "Audit Management | DAS M360 ERP",
+      "/admin/management-review": "Management Review (MRM) | DAS M360 ERP",
+      "/admin/reports": "Reports & Analytics | DAS M360 ERP",
+      "/admin/master-data": "Master Data | DAS M360 ERP",
+      "/admin/users": "User Management | DAS M360 ERP",
+      "/admin/tasks": "Task Management | DAS M360 ERP",
+      "/admin/settings": "Settings | DAS M360 ERP",
+    };
+    document.title = routeTitles[location.pathname] || "DAS M360 ERP | Management System";
   }, [location.pathname]);
 
   // Retrieve logged-in user from localStorage or use default
@@ -36,6 +59,15 @@ export default function AdminLayout() {
   const currentUser = storedUser
     ? JSON.parse(storedUser)
     : { name: "Admin", role: "System Administrator", email: "admin@dasm360.com" };
+
+  // Current real-time dynamic date
+  const today = new Date();
+  const currentDate = today.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const currentDay = today.toLocaleDateString("en-US", { weekday: "long" });
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
@@ -90,12 +122,12 @@ export default function AdminLayout() {
 
           {/* Right: Date, Notifications & Admin Profile */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* Date Display (Exact match: 31 Oct 2024 / Thursday on Dark Badge) */}
+            {/* Date Display (Live Today's Date) */}
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-xs font-medium text-slate-200">
               <Calendar className="w-4 h-4 text-sky-400" />
               <div className="text-left leading-tight">
-                <span className="font-semibold text-white">31 Oct 2024</span>
-                <span className="text-[10px] text-slate-400 block font-normal">Thursday</span>
+                <span className="font-semibold text-white">{currentDate}</span>
+                <span className="text-[10px] text-slate-400 block font-normal">{currentDay}</span>
               </div>
             </div>
 

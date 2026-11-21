@@ -285,6 +285,141 @@ export default function Planning() {
         </div>
       </div>
 
+      {/* 3.1 ANNUAL STRATEGIC PRIORITIES & ACTION TARGETS (CLEAN ERP DESIGN) */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                6.1
+              </span>
+              <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                Key Strategic Priorities & Action Targets (Next Year)
+              </h2>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Top organizational focus areas to improve operations, expand markets, and achieve targets
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-slate-500">Focus Period:</span>
+            <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+              Next Year (2026)
+            </span>
+          </div>
+        </div>
+
+        {/* 4 Clean Cards */}
+        <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/40 flex flex-col justify-between hover:border-slate-300 transition">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wide">
+                  Market Growth
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Target: +18%
+                </span>
+              </div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Export Market Expansion
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Obtain European CE Mark & regional export compliance to enter high-demand international markets.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-200/80 text-[11px]">
+              <span className="text-slate-400 block">Responsible:</span>
+              <span className="font-semibold text-slate-800">Sales & Marketing Lead</span>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/40 flex flex-col justify-between hover:border-slate-300 transition">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wide">
+                  Operations
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                  -25% Cycle Time
+                </span>
+              </div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Production Line Automation
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Add secondary CNC station and automated packaging sensors on Line 2 to remove assembly bottlenecks.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-200/80 text-[11px]">
+              <span className="text-slate-400 block">Responsible:</span>
+              <span className="font-semibold text-slate-800">Production & Plant Head</span>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/40 flex flex-col justify-between hover:border-slate-300 transition">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wide">
+                  Supply Chain
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                  Dual Sourcing
+                </span>
+              </div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Vendor Backup Agreements
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Qualify 2 local secondary suppliers for key raw alloy material to prevent sudden shipment delay risks.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-200/80 text-[11px]">
+              <span className="text-slate-400 block">Responsible:</span>
+              <span className="font-semibold text-slate-800">Procurement Manager</span>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/40 flex flex-col justify-between hover:border-slate-300 transition">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wide">
+                  Cost & Quality
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  BDT 1.2M Saved
+                </span>
+              </div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Waste & Scrap Reduction
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Implement shop-floor scrap barcode logging and weekly Kaizen reviews to bring defect rate under 1.0%.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-200/80 text-[11px]">
+              <span className="text-slate-400 block">Responsible:</span>
+              <span className="font-semibold text-slate-800">Quality Assurance Lead</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Clean Summary Strip */}
+        <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 text-xs flex flex-wrap items-center justify-between gap-3 text-slate-600">
+          <span className="font-semibold text-slate-700">Projected Performance Impact:</span>
+          <div className="flex flex-wrap items-center gap-4 text-[11px] font-medium">
+            <span>Revenue Growth: <strong className="text-emerald-600 font-bold">+18%</strong></span>
+            <span>•</span>
+            <span>Cycle Time: <strong className="text-blue-600 font-bold">-25%</strong></span>
+            <span>•</span>
+            <span>Scrap Defect: <strong className="text-emerald-600 font-bold">-30%</strong></span>
+            <span>•</span>
+            <span>Customer CSAT: <strong className="text-slate-800 font-bold">≥ 94%</strong></span>
+          </div>
+        </div>
+      </div>
+
       {/* 4. ROW 3: RISKS & OPPORTUNITIES (6.1) + QUALITY OBJECTIVES (6.2) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left: Risk & Opportunity Assessment (Clause 6.1) (Col 6) */}

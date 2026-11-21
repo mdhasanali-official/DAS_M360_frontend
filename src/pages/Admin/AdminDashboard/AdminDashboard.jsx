@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Users,
   CheckSquare,
@@ -11,8 +12,13 @@ import {
   ChevronDown,
   Search,
   ArrowUpRight,
+  ArrowRight,
   ShieldCheck,
   TrendingUp,
+  Activity,
+  Zap,
+  Award,
+  FileText,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -32,9 +38,64 @@ import {
 import { toast } from "react-hot-toast";
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
+  const today = new Date();
+  const defaultFormattedDate = today.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
   const [selectedDept, setSelectedDept] = useState("All Departments");
   const [searchEmployee, setSearchEmployee] = useState("");
-  const [selectedDate, setSelectedDate] = useState("31 Oct 2024");
+  const [selectedDate, setSelectedDate] = useState(defaultFormattedDate);
+
+  // Monthly Execution Trajectory (Past Month -> Current Month -> Next Month -> Target)
+  const monthlyTrajectory = [
+    {
+      period: "Last Month (Oct)",
+      shortName: "Oct (Past)",
+      score: 62,
+      target: 70,
+      tasks: 84,
+      status: "Completed",
+      fill: "#94a3b8", // Slate
+      badge: "62% (Baseline)",
+      desc: "Baseline QMS setup & initial gap assessment",
+    },
+    {
+      period: "This Month (Nov)",
+      shortName: "Nov (Current)",
+      score: 78,
+      target: 85,
+      tasks: 102,
+      status: "Active Position",
+      fill: "#2563eb", // Royal Blue
+      badge: "78% (Active)",
+      desc: "Process standardization & automation trials",
+    },
+    {
+      period: "Next Month (Dec)",
+      shortName: "Dec (Next Month)",
+      score: 88,
+      target: 88,
+      tasks: 130,
+      status: "Projected Target",
+      fill: "#10b981", // Emerald
+      badge: "88% (Target)",
+      desc: "CE Mark audit submission & Line 2 robotic arm",
+    },
+    {
+      period: "Q1 Target (Jan)",
+      shortName: "Jan (Future Goal)",
+      score: 95,
+      target: 95,
+      tasks: 156,
+      status: "Final Target",
+      fill: "#6366f1", // Indigo
+      badge: "95% (Target)",
+      desc: "Full certification & $120K lean scrap reduction",
+    },
+  ];
 
   // Top 6 Stat Cards Data (Exact from screenshot)
   const stats = [
@@ -240,7 +301,7 @@ export default function AdminDashboard() {
   const filteredEmployees = employees.filter((emp) => {
     const matchesDept = selectedDept === "All Departments" || emp.department === selectedDept;
     const matchesSearch = emp.name.toLowerCase().includes(searchEmployee.toLowerCase()) ||
-                          emp.department.toLowerCase().includes(searchEmployee.toLowerCase());
+      emp.department.toLowerCase().includes(searchEmployee.toLowerCase());
     return matchesDept && matchesSearch;
   });
 
@@ -318,6 +379,528 @@ export default function AdminDashboard() {
             </div>
           );
         })}
+      </div>
+
+      {/* STRATEGIC ROADMAP EXECUTION & MONTHLY TRAJECTORY BAR CHART (HIGHLY GRAPHICAL & 100% ENGLISH) */}
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+        {/* Top Header Strip */}
+        <div className="p-4 sm:p-5 border-b border-slate-150 bg-slate-50/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-sm shrink-0">
+              ISO
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                  Strategic Performance Trajectory & Executive Management Review
+                </h2>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                  Clause 6.1 • 6.2 • 9.3
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Monthly execution trajectory (Where We Were ➔ Where We Are Now ➔ Where We Will Be Next)
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 self-start md:self-auto">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Monthly Trajectory: On-Track (+16% MoM)
+            </span>
+          </div>
+        </div>
+
+        {/* SECTION 1: MONTHLY BAR CHART (WHERE WE WERE -> WHERE WE ARE -> WHERE WE WILL BE) */}
+        <div className="p-4 sm:p-5 border-b border-slate-150 bg-gradient-to-b from-white to-slate-50/50">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+            {/* Left 7 Cols: The Interactive Recharts Bar Chart */}
+            <div className="lg:col-span-7 bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-blue-600" />
+                    <span>Monthly Execution Trajectory (Chart Bar)</span>
+                  </h3>
+                  <span className="text-[11px] text-slate-500 block">
+                    Comparing Past Month, Current Month, and Next Month Target Projections
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-500 hidden sm:flex">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2.5 h-2.5 rounded bg-slate-400"></span> Oct (Past)
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2.5 h-2.5 rounded bg-blue-600"></span> Nov (Current)
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2.5 h-2.5 rounded bg-emerald-500"></span> Dec (Next)
+                  </span>
+                </div>
+              </div>
+
+              {/* Responsive BarChart Container */}
+              <div className="h-44 sm:h-48 w-full mt-2">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={monthlyTrajectory}
+                    margin={{ top: 20, right: 15, left: -20, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <XAxis
+                      dataKey="shortName"
+                      tick={{ fontSize: 11, fill: "#475569", fontWeight: 600 }}
+                      axisLine={{ stroke: "#cbd5e1" }}
+                      tickLine={false}
+                    />
+                    <YAxis
+                      domain={[0, 100]}
+                      ticks={[0, 25, 50, 75, 100]}
+                      tick={{ fontSize: 10, fill: "#94a3b8" }}
+                      unit="%"
+                      axisLine={false}
+                      tickLine={false}
+                    />
+                    <Tooltip
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          const data = payload[0].payload;
+                          return (
+                            <div className="bg-slate-900 text-white text-xs p-3 rounded-xl shadow-xl border border-slate-700 min-w-[210px]">
+                              <div className="font-bold text-slate-100 flex items-center justify-between pb-1.5 border-b border-slate-700">
+                                <span>{data.period}</span>
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">
+                                  {data.status}
+                                </span>
+                              </div>
+                              <div className="mt-2 space-y-1 text-[11px]">
+                                <div className="flex justify-between">
+                                  <span className="text-slate-400">Score / Target:</span>
+                                  <strong className="text-emerald-400">{data.score}% / {data.target}%</strong>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-slate-400">Tasks Completed:</span>
+                                  <strong className="text-slate-200">{data.tasks} of 156</strong>
+                                </div>
+                                <div className="pt-1.5 border-t border-slate-800 text-[10px] text-slate-300 italic">
+                                  {data.desc}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                    <Bar
+                      dataKey="score"
+                      radius={[6, 6, 0, 0]}
+                      barSize={38}
+                    >
+                      {monthlyTrajectory.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Right 5 Cols: Quick Trajectory Highlights Cards */}
+            <div className="lg:col-span-5 space-y-2.5">
+              {/* Card 1: Last Month (Oct) */}
+              <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-xs shrink-0">
+                    Oct
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-slate-900">Where We Were</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 font-semibold">
+                        Last Month
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-slate-500 block">Baseline QMS setup • 84 tasks</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-black text-slate-700 block">62%</span>
+                  <span className="text-[10px] text-slate-400">Completed</span>
+                </div>
+              </div>
+
+              {/* Card 2: This Month (Nov - Active) */}
+              <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-200 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                    Nov
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-blue-900">Where We Are Now</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 font-bold animate-pulse">
+                        Active
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-slate-500 block">Process standardization • 102 tasks</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-black text-blue-700 block">78%</span>
+                  <span className="text-[10px] text-blue-600 font-semibold">+16% Growth</span>
+                </div>
+              </div>
+
+              {/* Card 3: Next Month (Dec - Projected Target) */}
+              <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-200 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                    Dec
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-emerald-900">Where We Will Be</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-700 font-bold">
+                        Target
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-slate-500 block">CE Mark dossier & Line 2 robotic arm</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-black text-emerald-700 block">88%</span>
+                  <span className="text-[10px] text-emerald-600 font-semibold">Milestone Target</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 2: 3-STAGE DETAILED IMPACT CARDS */}
+        <div className="p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* STAGE 1: CURRENT STATE - WHERE WE ARE NOW */}
+          <div className="p-4 rounded-xl border border-blue-200/90 bg-gradient-to-b from-blue-50/40 to-white flex flex-col justify-between shadow-2xs relative">
+            <div>
+              {/* Card Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-blue-100">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                    1
+                  </span>
+                  <div>
+                    <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider block leading-none">
+                      Current Position
+                    </span>
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900">
+                      Where We Are Today
+                    </h3>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">
+                  Active
+                </span>
+              </div>
+
+              {/* Graphic 1: Big Progress Metric */}
+              <div className="mt-3.5 p-3 rounded-lg bg-white border border-blue-100">
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5 text-blue-600" />
+                    Overall KPI Execution
+                  </span>
+                  <span className="text-sm font-black text-blue-700">78%</span>
+                </div>
+                <div className="w-full bg-slate-150 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-700"
+                    style={{ width: "78%" }}
+                  ></div>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Last Month: 62%</span>
+                  <span className="font-semibold text-blue-600">Target: 85% by Q2</span>
+                </div>
+              </div>
+
+              {/* Graphic 2: Dual Key Indicators */}
+              <div className="mt-3 space-y-2">
+                <div className="p-2.5 rounded-lg bg-white border border-slate-200 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-800 block">Task Velocity</span>
+                      <span className="text-[10px] text-slate-500">102 of 156 tasks closed</span>
+                    </div>
+                  </div>
+                  <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[11px] border border-emerald-100">
+                    65.4%
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-white border border-slate-200 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs shrink-0">
+                      <Target className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-800 block">Customer CSAT</span>
+                      <span className="text-[10px] text-slate-500">Benchmark ≥ 90.0%</span>
+                    </div>
+                  </div>
+                  <span className="font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded text-[11px] border border-amber-100">
+                    85.0%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-4 pt-3 border-t border-blue-100 flex items-center justify-between text-xs">
+              <span className="text-[10px] text-slate-400 font-medium">Clause 6.2 Objectives</span>
+              <button
+                onClick={() => navigate("/admin/planning")}
+                className="font-bold text-blue-600 hover:text-blue-800 text-xs inline-flex items-center gap-1 hover:underline"
+              >
+                <span>Strategic Plan</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+
+          {/* STAGE 2: TARGET DESTINATION - WHERE WE WILL REACH */}
+          <div className="p-4 rounded-xl border border-emerald-200/90 bg-gradient-to-b from-emerald-50/40 to-white flex flex-col justify-between shadow-2xs relative">
+            <div>
+              {/* Card Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-emerald-100">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
+                    2
+                  </span>
+                  <div>
+                    <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block leading-none">
+                      Target Milestones
+                    </span>
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900">
+                      Where We Will Reach
+                    </h3>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                  Planned Impact
+                </span>
+              </div>
+
+              {/* Graphic 1: 3 Projected Impact Badges */}
+              <div className="mt-3.5 space-y-2">
+                <div className="p-2.5 rounded-lg bg-white border border-emerald-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <TrendingUp className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-800 block">Export & Revenue Surge</span>
+                      <span className="text-[10px] text-slate-500">CE Mark & Halal Certification</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    +18.5%
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-white border border-emerald-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-800 block">Cycle Time Reduction</span>
+                      <span className="text-[10px] text-slate-500">Line 2 automated robotic packing</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    -25.0%
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-white border border-emerald-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Award className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-800 block">Annual Lean Scrap Savings</span>
+                      <span className="text-[10px] text-slate-500">Driven by Kaizen scrap logging</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    $120K / ৳1.25M
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-4 pt-3 border-t border-emerald-100 flex items-center justify-between text-xs">
+              <span className="text-[10px] text-slate-400 font-medium">Clause 10.3 Improvement</span>
+              <button
+                onClick={() => navigate("/admin/planning")}
+                className="font-bold text-emerald-700 hover:text-emerald-900 text-xs inline-flex items-center gap-1 hover:underline"
+              >
+                <span>Growth Targets</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+
+          {/* STAGE 3: CONTINGENCY & GAP - WHAT IF WE FAIL? */}
+          <div className="p-4 rounded-xl border border-rose-200/90 bg-gradient-to-b from-rose-50/40 to-white flex flex-col justify-between shadow-2xs relative">
+            <div>
+              {/* Card Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-rose-100">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-xs">
+                    3
+                  </span>
+                  <div>
+                    <span className="text-[10px] font-bold text-rose-700 uppercase tracking-wider block leading-none">
+                      Contingency & Gaps
+                    </span>
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900">
+                      What If We Fail?
+                    </h3>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700">
+                  Critical
+                </span>
+              </div>
+
+              {/* Graphic 1: Risk Severity Meter */}
+              <div className="mt-3.5 p-3 rounded-lg bg-white border border-rose-100">
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                    Overall Risk Exposure
+                  </span>
+                  <span className="text-sm font-black text-rose-700">Score: 16 / 25</span>
+                </div>
+                <div className="w-full bg-slate-150 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-amber-500 to-rose-600 h-2.5 rounded-full transition-all duration-700"
+                    style={{ width: "64%" }}
+                  ></div>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Low Risk (0-8)</span>
+                  <span className="font-semibold text-rose-600">High Risk Threshold</span>
+                </div>
+              </div>
+
+              {/* Graphic 2: Critical Risk Gaps */}
+              <div className="mt-3 space-y-2">
+                <div className="p-2.5 rounded-lg bg-white border border-rose-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[11px] font-bold text-slate-900 block">Single-Vendor Bottleneck</span>
+                    <span className="text-[10px] text-slate-500">Exclusive steel supplier delay</span>
+                  </div>
+                  <span className="text-[10px] font-black text-rose-700 bg-rose-50 px-2 py-1 rounded border border-rose-200 text-right">
+                    10-15 Days Stoppage
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-white border border-rose-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[11px] font-bold text-slate-900 block">12 Overdue Action Items</span>
+                    <span className="text-[10px] text-slate-500">Unresolved internal audit items</span>
+                  </div>
+                  <span className="text-[10px] font-black text-rose-700 bg-rose-50 px-2 py-1 rounded border border-rose-200 text-right">
+                    Audit Major NC
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-4 pt-3 border-t border-rose-100 flex items-center justify-between text-xs">
+              <span className="text-[10px] text-slate-400 font-medium">Clause 6.1 Mitigation</span>
+              <button
+                onClick={() => navigate("/admin/risks")}
+                className="font-bold text-rose-600 hover:text-rose-800 text-xs inline-flex items-center gap-1 hover:underline"
+              >
+                <span>Risk Matrix</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM INTEGRATED EXECUTIVE MRM (CLAUSE 9.3) MEETING CALL & AGENDAS */}
+        <div className="p-4 sm:p-5 border-t border-slate-200/80 bg-gradient-to-r from-slate-50 via-amber-50/20 to-slate-50">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            {/* Visual Date Badge (Left 3 cols) */}
+            <div className="lg:col-span-3 flex items-center gap-3 p-3 rounded-xl bg-white border border-amber-200/90 shadow-2xs">
+              <div className="w-12 h-12 rounded-lg bg-amber-600 text-white flex flex-col items-center justify-center font-bold shrink-0 shadow-xs">
+                <span className="text-[10px] uppercase tracking-wider leading-none">NOV</span>
+                <span className="text-xl leading-tight font-black">28</span>
+              </div>
+              <div>
+                <div className="flex items-center gap-1 text-[11px] font-bold text-amber-800 uppercase tracking-wide">
+                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                  Upcoming MRM Call
+                </div>
+                <div className="text-xs font-black text-slate-900 mt-0.5">Thursday • 10:30 AM</div>
+                <div className="text-[10px] text-slate-500">Boardroom A • Chair: MD</div>
+              </div>
+            </div>
+
+            {/* Key Agenda Highlights (Middle 6 cols) */}
+            <div className="lg:col-span-6 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 block">
+                Executive Agenda Items (ISO 9001:2015 Clause 9.3 Review):
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] text-slate-700">
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/80 border border-slate-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="truncate">Approve $240K Automation Capex</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/80 border border-slate-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="truncate">Dual-Sourcing Supplier Contracts</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/80 border border-slate-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="truncate">Resolve 12 Overdue Corrective Actions</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/80 border border-slate-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="truncate">Q2 Surveillance Audit Readiness</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons (Right 3 cols) */}
+            <div className="lg:col-span-3 flex flex-col gap-2">
+              <button
+                onClick={() => navigate("/admin/management-review")}
+                className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-sm flex items-center justify-center gap-2"
+              >
+                <span>Open MRM Agenda & Register</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => navigate("/admin/planning")}
+                className="w-full py-1.5 px-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5"
+              >
+                <FileText className="w-3.5 h-3.5 text-slate-500" />
+                <span>View Full Strategic Roadmap</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 2. MIDDLE ROW: 3 VISUAL OVERVIEW CARDS */}
@@ -464,7 +1047,7 @@ export default function AdminDashboard() {
                   <th className="py-2.5 px-3 w-8">#</th>
                   <th className="py-2.5 px-3">Employee</th>
                   <th className="py-2.5 px-3">Department</th>
-                  <th className="py-2.5 px-3 text-center">Today's Tasks<br/><span className="text-[9px] text-slate-400 font-normal">Assigned / Comp / Pend / Over</span></th>
+                  <th className="py-2.5 px-3 text-center">Today's Tasks<br /><span className="text-[9px] text-slate-400 font-normal">Assigned / Comp / Pend / Over</span></th>
                   <th className="py-2.5 px-3 text-center">Task Completion</th>
                   <th className="py-2.5 px-3 text-center">KPI Target</th>
                   <th className="py-2.5 px-3 text-center">KPI Achieved</th>
@@ -508,11 +1091,10 @@ export default function AdminDashboard() {
                     <td className="py-2.5 px-3 text-center font-bold text-slate-800 text-[11px]">{emp.achieved}%</td>
                     <td className="py-2.5 px-3 text-center">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          emp.status === "On Track"
-                            ? "bg-emerald-100/80 text-emerald-700 border border-emerald-200"
-                            : "bg-amber-100/80 text-amber-700 border border-amber-200"
-                        }`}
+                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${emp.status === "On Track"
+                          ? "bg-emerald-100/80 text-emerald-700 border border-emerald-200"
+                          : "bg-amber-100/80 text-amber-700 border border-amber-200"
+                          }`}
                       >
                         {emp.status}
                       </span>
@@ -541,7 +1123,7 @@ export default function AdminDashboard() {
                 My Tasks (Today)
               </h3>
               <button
-                onClick={() => toast("All today's tasks opened", { icon: "📋" })}
+                onClick={() => navigate("/admin/tasks")}
                 className="text-[11px] font-semibold text-blue-600 hover:text-blue-700"
               >
                 View All
@@ -583,7 +1165,7 @@ export default function AdminDashboard() {
                 </h3>
               </div>
               <button
-                onClick={() => toast("Viewing all 12 overdue tasks", { icon: "⚠️" })}
+                onClick={() => navigate("/admin/tasks")}
                 className="text-[11px] font-semibold text-blue-600 hover:text-blue-700"
               >
                 View All

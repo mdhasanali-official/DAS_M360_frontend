@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import dasLogo from "../../assets/das-logo.png";
 import { Eye, EyeOff, Lock, Mail, ShieldCheck } from "lucide-react";
 import { toast } from "react-hot-toast";
 
@@ -69,19 +70,13 @@ export default function Login() {
     <div className="min-h-screen w-full bg-[#f8fafc] flex flex-col justify-between items-center px-4 py-8 sm:py-12 text-slate-800">
       <div className="w-full flex-1 flex flex-col items-center justify-center">
         {/* লোগো ও হেডার */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-blue-500/20">
-              DAS
-            </div>
-            <div className="text-left">
-              <h1 className="text-2xl font-black tracking-tight text-slate-900 leading-none">
-                DAS <span className="text-blue-600">M360</span>
-              </h1>
-              <span className="text-[10px] font-bold tracking-widest text-slate-500 uppercase">
-                Management System ERP
-              </span>
-            </div>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <div className="p-3.5 bg-[#0b1329] rounded-2xl shadow-xl border border-slate-800 mb-3 inline-block">
+            <img
+              src={dasLogo}
+              alt="DAS M360 Management System ERP"
+              className="h-14 sm:h-16 w-auto object-contain"
+            />
           </div>
           <p className="text-xs text-slate-500 font-medium">
             ISO 9001:2015 Management System Portal

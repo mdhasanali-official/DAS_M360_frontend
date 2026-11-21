@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="dasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070c18" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Rounded Square with Gradient Border -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#dasGrad)" />
+  <rect x="5" y="5" width="54" height="54" rx="13" fill="url(#innerGlow)" />
+
+  <!-- Shield / Orbit Accent -->
+  <circle cx="32" cy="32" r="23" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="8 4" opacity="0.3" fill="none" />
+
+  <!-- Stylized M & 360 Emblem -->
+  <!-- "M" Geometry -->
+  <path d="M16 43 V21 L24 33 L32 21 V43" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  
+  <!-- "360" Arc Badge -->
+  <path d="M37 25 C43 23, 49 27, 49 33 C49 39, 43 43, 37 41" stroke="url(#dasGrad)" stroke-width="3" stroke-linecap="round" fill="none" />
+  <circle cx="43" cy="33" r="2.5" fill="#38bdf8" />
+</svg>
